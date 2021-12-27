@@ -1,0 +1,1 @@
+redis-cli CLIENT LIST | sed -n 's|.*addr=\(.*\)\:.*|\1|p' | sort | uniq -c
