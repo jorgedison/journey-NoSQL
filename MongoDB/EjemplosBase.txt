@@ -1,0 +1,19 @@
+#Crear un nuevo documento en una colección:
+
+db.products.insertOne( { name: "Laptop", price: 1500 } )
+
+#Leer todos los documentos de una colección:
+
+db.products.find()
+
+#Leer un documento específico de una colección:
+
+db.products.findOne( { name: "Laptop" } )
+
+#Actualizar un documento existente en una colección:
+
+db.products.updateOne( { name: "Laptop" }, { $set: { price: 1800 } } )
+
+#Eliminar un documento existente en una colección:
+
+db.products.deleteOne( { name: "Laptop" } )
