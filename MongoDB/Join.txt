@@ -1,0 +1,36 @@
+#1. Agregación con $lookup:
+
+#Supongamos que tienes dos colecciones: orders y customers. Quieres obtener una lista de pedidos con información sobre los clientes que realizaron esos pedidos. Puedes usar $lookup para unir estas colecciones:
+
+db.orders.aggregate([
+  {
+    $lookup: {
+      from: "customers",
+      localField: "customer_id",
+      foreignField: "_id",
+      as: "customer_info"
+    }
+  }
+]);
+
+En este ejemplo, localField se refiere al campo en la colección orders que se usará para hacer coincidir con foreignField, que es el campo en la colección customers. El resultado incluirá un campo customer_info que contendrá los datos del cliente correspondiente.
+
+#2. Referencia de documentos:
+
+Otra forma de lograr una especie de "join" en MongoDB es almacenar referencias a documentos en una colección diferente. Por ejemplo, si tienes una colección de comments y cada comentario está asociado a un usuario, puedes hacerlo de la siguiente manera:
+
+// Documento en la colección users
+{
+  _id: 1,
+  username: "ejemplo"
+}
+
+// Documento en la colección comments
+{
+  _id: 101,
+  text: "Este es un comentario",
+  user_id: 1 // Referencia al usuario
+}
+
+db.comments.findOne({ _id: 101 }).populate("user_id");
+
